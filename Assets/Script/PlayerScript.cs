@@ -18,6 +18,8 @@ public class PlayerScript : MonoBehaviour {
 
 	public GameObject windy;
 	NavMeshAgent windyAgent;
+
+	int callingTimes;
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
@@ -33,6 +35,8 @@ public class PlayerScript : MonoBehaviour {
 		OnSwitchTap ();
 		OnRotatedEnemyTap ();
 		OnCallingTap ();
+		OnDangerAlertTap ();
+
 
 	}
 
@@ -107,7 +111,29 @@ public class PlayerScript : MonoBehaviour {
 					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
 					{
 						if (m_hitInfo.transform == gos[i].transform) {
-							windyAgent.SetDestination(m_hitInfo.point);
+							callingTimes++;
+							if(callingTimes % 2 == 1){
+								windyAgent.SetDestination(m_hitInfo.point);
+							} else {
+								windyAgent.SetDestination(windy.transform.position);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void OnDangerAlertTap () {
+		GameObject[] gos = GameObject.FindGameObjectsWithTag("DangerAlert");
+		for (int i = 0; i < gos.Length; i++) {
+			if (Input.GetMouseButtonDown(0)){
+				if(Physics.Raycast(m_ray, out m_hitInfo, m_rayDistance)){
+					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
+					{
+						if (m_hitInfo.transform == gos[i].transform) {
+							Debug.Log("On Danger Alert");
+							windyAgent.areaMask -= 16;
 						}
 					}
 				}
