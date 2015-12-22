@@ -16,12 +16,14 @@ public class PlayerScript : MonoBehaviour {
 
 	public float minDis = 1;
 
-	bool onSwitchTap;
+	public GameObject windy;
+	NavMeshAgent windyAgent;
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
 		m_layerMask = 1 << 8;
 		itemLayerMask = 1 << 9;
+		windyAgent = windy.GetComponent<NavMeshAgent> ();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +32,7 @@ public class PlayerScript : MonoBehaviour {
 		Move ();
 		OnSwitchTap ();
 		OnRotatedEnemyTap ();
+		OnCallingTap ();
 
 	}
 
@@ -87,7 +90,7 @@ public class PlayerScript : MonoBehaviour {
 					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
 					{
 						if (m_hitInfo.transform == gos[i].transform) {
-							Debug.Log("RotateOn");
+							//Debug.Log("RotateOn");
 							gos[i].GetComponent<RotatedEnemyScript>().RotateOn();
 						}
 					}
@@ -96,5 +99,19 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-
+	void OnCallingTap () {
+		GameObject[] gos = GameObject.FindGameObjectsWithTag("Calling");
+		for (int i = 0; i < gos.Length; i++) {
+			if (Input.GetMouseButtonDown(0)){
+				if(Physics.Raycast(m_ray, out m_hitInfo, m_rayDistance)){
+					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
+					{
+						if (m_hitInfo.transform == gos[i].transform) {
+							windyAgent.SetDestination(m_hitInfo.point);
+						}
+					}
+				}
+			}
+		}
+	}
 }
