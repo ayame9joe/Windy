@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class PlayerScript : MonoBehaviour {
 
@@ -22,6 +23,8 @@ public class PlayerScript : MonoBehaviour {
 	int callingTimes;
 
 	int boxTappingTimes;
+
+	float energyMoveDuration = 2;
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
@@ -39,6 +42,7 @@ public class PlayerScript : MonoBehaviour {
 		OnCallingTap ();
 		OnDangerAlertTap ();
 		OnBoxTap ();
+		OnEnergyTap ();
 
 
 	}
@@ -158,6 +162,23 @@ public class PlayerScript : MonoBehaviour {
 							} else {
 								gos[i].transform.parent = null;
 							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void OnEnergyTap () {
+		GameObject[] gos = GameObject.FindGameObjectsWithTag("Energy");
+		for (int i = 0; i < gos.Length; i++) {
+			if (Input.GetMouseButtonDown(0)){
+				if(Physics.Raycast(m_ray, out m_hitInfo, m_rayDistance)){
+					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
+					{
+						if (m_hitInfo.transform == gos[i].transform) {
+							Debug.Log("On Energy");
+							gos[i].transform.DOMove(windy.transform.position, energyMoveDuration);
 						}
 					}
 				}

@@ -15,11 +15,19 @@ public class WindyScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (open) {
+		/*if (open) {
 			navMeshAgent.areaMask = 1;
 		} else {
 			navMeshAgent.areaMask = 9;
-		}
+		}*/
 	
+	}
+
+	void OnTriggerEnter (Collider other) {
+		if (other.tag == "Laser") {
+			// TODO:
+		} else if (other.tag == "Energy") {
+			// TODO: 
+		}
 	}
 }
