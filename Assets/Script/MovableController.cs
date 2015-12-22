@@ -10,7 +10,7 @@ public class MovableController : MonoBehaviour {
 		down,
 		forward,
 		back
-	}
+	};
 	 
 	public MovableType movableType;
 	// Use this for initialization

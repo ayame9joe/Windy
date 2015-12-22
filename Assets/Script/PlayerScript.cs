@@ -29,9 +29,8 @@ public class PlayerScript : MonoBehaviour {
 
 		Move ();
 		OnSwitchTap ();
-		//StartCoroutine("OnSwitchTap");
+		OnRotatedEnemyTap ();
 
-	
 	}
 
 	void Move () {
@@ -54,35 +53,47 @@ public class PlayerScript : MonoBehaviour {
 	void OnSwitchTap () {
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("Switch");
 		for(int i = 0; i < gos.Length; i++) {
-			if(Physics.Raycast(m_ray,out m_hitInfo, m_rayDistance, itemLayerMask))
-			{
-				if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis) //&& 
-				   //!gos[i].GetComponent<SwitchScript>().onSwitchTap)
+			if(Input.GetMouseButtonDown(0)){
+				if(Physics.Raycast(m_ray,out m_hitInfo, m_rayDistance, itemLayerMask))
 				{
-					gos[i].GetComponent<SwitchScript>().hasCheckedType = false;
-					if (m_hitInfo.transform == gos[i].transform) {
-
-						//gos[i].GetComponent<SwitchScript>().onSwitchTap = true;
-
-						//yield return new WaitForSeconds(gos[i].GetComponent<SwitchScript>().duration);
-						//gos[i].GetComponent<SwitchScript>().onSwitchTap = false;
+					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
+					{
+						if (m_hitInfo.transform == gos[i].transform) {
+							gos[i].GetComponent<SwitchScript>().hasCheckedType = false;
+						}
 					}
 				}
 			}
 
+
 			if (!gos[i].GetComponent<SwitchScript>().hasCheckedType) {
-				Debug.Log ("Switch On");
+				//Debug.Log ("Switch On");
 				gos[i].GetComponent<SwitchScript>().SwitchOn();
 				gos[i].GetComponent<SwitchScript>().hasCheckedType = true;
 			}
 			else {
 				gos[i].GetComponent<SwitchScript>().CheckType();
 			}
-
-			//Debug.Log (Vector3.Distance(this.transform.position, gos[i].transform.position));
 		}
 
 
+	}
+
+	void OnRotatedEnemyTap () {
+		GameObject[] gos = GameObject.FindGameObjectsWithTag("RotatedEnemy");
+		for (int i = 0; i < gos.Length; i++) {
+			if (Input.GetMouseButtonDown(0)){
+				if(Physics.Raycast(m_ray, out m_hitInfo, m_rayDistance)){
+					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
+					{
+						if (m_hitInfo.transform == gos[i].transform) {
+							Debug.Log("RotateOn");
+							gos[i].GetComponent<RotatedEnemyScript>().RotateOn();
+						}
+					}
+				}
+			}
+		}
 	}
 
 

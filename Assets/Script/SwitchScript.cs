@@ -13,7 +13,6 @@ public class SwitchScript : MonoBehaviour {
 
 	public bool hasCheckedType = true;
 
-	public bool onSwitchTap;
 	// Use this for initialization
 	void Start () {
 		movableController = Movable.GetComponent<MovableController> ();
