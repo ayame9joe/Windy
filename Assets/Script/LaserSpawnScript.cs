@@ -29,6 +29,7 @@ public class LaserSpawnScript : MonoBehaviour {
 
 		if ((currentTime - lastSpawnTime) > spawnRate) {
 			GameObject m_laser = GameObject.Instantiate(laser, transform.position, Quaternion.identity) as GameObject;
+			m_laser.transform.parent = this.transform;
 			lastSpawnTime = currentTime;
 		}
 
