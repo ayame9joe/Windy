@@ -54,9 +54,9 @@ public class PlayerScript : MonoBehaviour {
 			// 进行三维场景中的射线求交
 			if (Physics.Raycast (m_ray, out m_hitInfo, m_rayDistance, m_layerMask)) {
 				if (m_hitInfo.transform.tag == "Floor" || m_hitInfo.transform.tag == "WindThrough") {
-					desPos = new Vector3 (m_hitInfo.point.x, this.transform.position.y, m_hitInfo.point.z);
-					this.transform.LookAt(desPos);
-					m_agent.destination = desPos;
+					desPos = new Vector3 (m_hitInfo.point.x, m_hitInfo.point.y + transform.position.y * 0.5f, m_hitInfo.point.z);
+				this.transform.LookAt(desPos);
+				m_agent.SetDestination(desPos);
 				}
 			}
 		}
