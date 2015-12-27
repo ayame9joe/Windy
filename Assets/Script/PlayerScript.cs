@@ -28,6 +28,8 @@ public class PlayerScript : MonoBehaviour {
 	float energyMoveDuration = 2;
 
 	float moveDuration = 2;
+
+	int maxGridNum = 15;
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
@@ -58,9 +60,9 @@ public class PlayerScript : MonoBehaviour {
 			// 进行三维场景中的射线求交
 			if (Physics.Raycast (m_ray, out m_hitInfo, m_rayDistance, m_layerMask)) {
 				if (m_hitInfo.transform.tag == "Floor" || m_hitInfo.transform.tag == "WindThrough") {
-					for (int i = -8; i < 8; i++) {
-						for(int j = -8; j < 10; j++){
-							for (int k = -8; k < 8; k++){
+					for (int i = -maxGridNum; i < maxGridNum; i++) {
+						for(int j = -maxGridNum; j < maxGridNum; j++){
+							for (int k = -maxGridNum; k < maxGridNum; k++){
 								Vector3 tempVec3 = new Vector3(i * 2, j * 2, k * 2 + 1);
 								if (Vector3.Distance(m_hitInfo.point, tempVec3) < 1f){
 									desPos = tempVec3;
