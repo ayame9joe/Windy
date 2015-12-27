@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour {
 	Vector3 desPos;
 
 	NavMeshAgent m_agent;
+	OffMeshLinkData linkData;
 
 	public float minDis = 1;
 
@@ -25,6 +26,8 @@ public class PlayerScript : MonoBehaviour {
 	int boxTappingTimes;
 
 	float energyMoveDuration = 2;
+
+	float moveDuration = 2;
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
@@ -37,6 +40,7 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 
 		Move ();
+		TraverseOffMeshLink ();
 		OnSwitchTap ();
 		OnRotatedEnemyTap ();
 		OnCallingTap ();
@@ -54,14 +58,40 @@ public class PlayerScript : MonoBehaviour {
 			// 进行三维场景中的射线求交
 			if (Physics.Raycast (m_ray, out m_hitInfo, m_rayDistance, m_layerMask)) {
 				if (m_hitInfo.transform.tag == "Floor" || m_hitInfo.transform.tag == "WindThrough") {
-					desPos = new Vector3 (m_hitInfo.point.x, m_hitInfo.point.y /*+ transform.position.y * 0.5f */, m_hitInfo.point.z);
-				this.transform.LookAt(desPos);
-				m_agent.SetDestination(desPos);
+					for (int i = -8; i < 8; i++) {
+						for(int j = -8; j < 10; j++){
+							for (int k = -8; k < 8; k++){
+								Vector3 tempVec3 = new Vector3(i * 2, j * 2, k * 2 + 1);
+								if (Vector3.Distance(m_hitInfo.point, tempVec3) < 1f){
+									desPos = tempVec3;
+									//Debug.Log (Vector3.Distance(m_hitInfo.point, tempVec3) );
+								}
+							}
+						}
+					}
+					//desPos = new Vector3 (m_hitInfo.point.x, m_hitInfo.point.y /*+ transform.position.y * 0.5f */, m_hitInfo.point.z);
+					this.transform.LookAt(desPos);
+					m_agent.SetDestination(desPos);
+					Debug.Log (m_hitInfo.point);
+
 				}
 			}
 		}
 
 
+
+
+	}
+
+	void TraverseOffMeshLink () {
+		if (m_agent.isOnOffMeshLink) {
+			linkData = m_agent.currentOffMeshLinkData;
+			this.transform.DOMove(linkData.endPos, moveDuration);
+		}
+		if (Vector3.Distance(this.transform.position, linkData.endPos) < 1){
+			m_agent.Resume();
+			m_agent.CompleteOffMeshLink();
+		}
 	}
 
 	void OnSwitchTap () {
@@ -185,4 +215,6 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 	}
+
+
 }
