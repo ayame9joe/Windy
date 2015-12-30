@@ -63,18 +63,19 @@ public class PlayerScript : MonoBehaviour {
 					for (int i = -maxGridNum; i < maxGridNum; i++) {
 						for(int j = -maxGridNum; j < maxGridNum; j++){
 							for (int k = -maxGridNum; k < maxGridNum; k++){
-								Vector3 tempVec3 = new Vector3(i * 2, j * 2, k * 2 + 1);
+								Vector3 tempVec3 = new Vector3(i * 2, j * 2 + transform.position.y * 0.5f, k * 2 + 1);
 								if (Vector3.Distance(m_hitInfo.point, tempVec3) < 1f){
 									desPos = tempVec3;
+									this.transform.LookAt(tempVec3);
+									m_agent.SetDestination(tempVec3);
 									//Debug.Log (Vector3.Distance(m_hitInfo.point, tempVec3) );
 								}
 							}
 						}
 					}
 					//desPos = new Vector3 (m_hitInfo.point.x, m_hitInfo.point.y /*+ transform.position.y * 0.5f */, m_hitInfo.point.z);
-					this.transform.LookAt(desPos);
-					m_agent.SetDestination(desPos);
-					Debug.Log (m_hitInfo.point);
+
+					//Debug.Log (m_hitInfo.point);
 
 				}
 			}
