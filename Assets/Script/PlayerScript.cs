@@ -30,12 +30,22 @@ public class PlayerScript : MonoBehaviour {
 	float moveDuration = 2;
 
 	int maxGridNum = 15;
+
+	public GameObject walkingShadowAnim;
+	bool isWalkingShadowAnimating;
+	//Animation walkingShadowAnim;
+
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
 		m_layerMask = 1 << 8;
 		itemLayerMask = 1 << 9;
 		windyAgent = windy.GetComponent<NavMeshAgent> ();
+
+//		walkingShadowAnim = this.GetComponent<Animation> ();
+
+
+
 	}
 	
 	// Update is called once per frame
@@ -54,6 +64,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void Move () {
+
 		if (Input.GetMouseButtonDown (0)) {
 			// 根据鼠标在屏幕空间的位置计算射线
 			m_ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -63,11 +74,16 @@ public class PlayerScript : MonoBehaviour {
 					for (int i = -maxGridNum; i < maxGridNum; i++) {
 						for(int j = -maxGridNum; j < maxGridNum; j++){
 							for (int k = -maxGridNum; k < maxGridNum; k++){
-								Vector3 tempVec3 = new Vector3(i * 2, j * 2 + transform.position.y * 0.5f, k * 2 + 1);
+								Vector3 tempVec3 = new Vector3(i * 2, j * 2 + transform.position.y * 1f, k * 2 + 1);
 								if (Vector3.Distance(m_hitInfo.point, tempVec3) < 1f){
 									desPos = tempVec3;
-									this.transform.LookAt(tempVec3);
-									m_agent.SetDestination(tempVec3);
+									this.transform.LookAt(desPos);
+									m_agent.SetDestination(desPos);
+
+									isWalkingShadowAnimating = true;
+
+									GameObject.Instantiate(walkingShadowAnim, desPos, this.transform.rotation);
+									//walkingShadowAnim.Play("WalkingShadowAnim");
 									//Debug.Log (Vector3.Distance(m_hitInfo.point, tempVec3) );
 								}
 							}
@@ -81,7 +97,9 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 
+		if (isWalkingShadowAnimating) {
 
+		}
 
 
 	}
