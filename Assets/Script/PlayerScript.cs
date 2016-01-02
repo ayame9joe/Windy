@@ -32,8 +32,7 @@ public class PlayerScript : MonoBehaviour {
 	int maxGridNum = 15;
 
 	public GameObject walkingShadowAnim;
-	bool isWalkingShadowAnimating;
-	//Animation walkingShadowAnim;
+
 
 	// Use this for initialization
 	void Start () {
@@ -80,16 +79,13 @@ public class PlayerScript : MonoBehaviour {
 									this.transform.LookAt(desPos);
 									m_agent.SetDestination(desPos);
 
-									isWalkingShadowAnimating = true;
 
-									GameObject.Instantiate(walkingShadowAnim, desPos, this.transform.rotation);
-									//walkingShadowAnim.Play("WalkingShadowAnim");
-									//Debug.Log (Vector3.Distance(m_hitInfo.point, tempVec3) );
+									StartCoroutine("WalkingShadowGenerate");
 								}
 							}
 						}
 					}
-					//desPos = new Vector3 (m_hitInfo.point.x, m_hitInfo.point.y /*+ transform.position.y * 0.5f */, m_hitInfo.point.z);
+
 
 					//Debug.Log (m_hitInfo.point);
 
@@ -97,11 +93,31 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 
-		if (isWalkingShadowAnimating) {
 
-		}
+	}
 
+	IEnumerator WalkingShadowGenerate(){
 
+		GameObject go = GameObject.Instantiate(walkingShadowAnim, desPos, walkingShadowAnim.transform.rotation) as GameObject;
+		//Debug.Log (Vector3.Distance(m_hitInfo.point, tempVec3) );
+		
+		
+		
+		/*AnimatorStateInfo info = walkingShadowAnim.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+
+									// 判断动画是否播放完成
+									if (info.nameHash == Animator.StringToHash("Base Layer.WalkingShadowAnim"))
+									{
+										if (info.normalizedTime >= 1f)
+										{
+											walkingShadowAnim.GetComponent<Animator>().SetBool("Exit", true);
+										}
+									}*/
+		WalkingShadowGenerate();
+		yield return new WaitForSeconds(1);
+		
+		Destroy(go);
+		
 	}
 
 	void TraverseOffMeshLink () {
