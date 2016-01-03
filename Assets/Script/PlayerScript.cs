@@ -261,7 +261,17 @@ public class PlayerScript : MonoBehaviour {
 			//Debug.Log("On Calling Enter");
 			Vector3 tempPos = other.transform.position;
 			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
-			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z), moveDuration);
+			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y - 0.3f, tempPos.z), moveDuration);
+			windyAgent.SetDestination(tempPos);
+		}
+	}
+
+	void OnTriggerExit(Collider other){
+		if (other.tag == "Calling") {
+			//Debug.Log("On Calling Enter");
+			Vector3 tempPos = other.transform.position;
+			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
+			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y + 0.3f, tempPos.z), moveDuration);
 			windyAgent.SetDestination(tempPos);
 		}
 	}
