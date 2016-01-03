@@ -114,7 +114,7 @@ public class PlayerScript : MonoBehaviour {
 										}
 									}*/
 		WalkingShadowGenerate();
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(1f);
 		
 		Destroy(go);
 		
