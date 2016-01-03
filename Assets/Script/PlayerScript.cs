@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour {
 	NavMeshAgent m_agent;
 	OffMeshLinkData linkData;
 
-	public float minDis = 1;
+	public float minDis = 2;
 
 	public GameObject windy;
 	NavMeshAgent windyAgent;
@@ -54,7 +54,8 @@ public class PlayerScript : MonoBehaviour {
 		TraverseOffMeshLink ();
 		OnSwitchTap ();
 		OnRotatedEnemyTap ();
-		OnCallingTap ();
+		//OnCallingTap ();
+		//OnCallingEnter ();
 		OnDangerAlertTap ();
 		OnBoxTap ();
 		OnEnergyTap ();
@@ -98,7 +99,7 @@ public class PlayerScript : MonoBehaviour {
 
 	IEnumerator WalkingShadowGenerate(){
 
-		GameObject go = GameObject.Instantiate(walkingShadowAnim, desPos, walkingShadowAnim.transform.rotation) as GameObject;
+		GameObject go = GameObject.Instantiate(walkingShadowAnim, new Vector3(desPos.x + 0.5f, desPos.y, desPos.z + 0.5f), walkingShadowAnim.transform.rotation) as GameObject;
 		//Debug.Log (Vector3.Distance(m_hitInfo.point, tempVec3) );
 		
 		
@@ -184,6 +185,7 @@ public class PlayerScript : MonoBehaviour {
 				if(Physics.Raycast(m_ray, out m_hitInfo, m_rayDistance)){
 					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
 					{
+
 						if (m_hitInfo.transform == gos[i].transform) {
 							callingTimes++;
 							if(callingTimes % 2 == 1){
@@ -250,6 +252,17 @@ public class PlayerScript : MonoBehaviour {
 					}
 				}
 			}
+		}
+	}
+
+	void OnTriggerEnter(Collider other){
+		//Debug.Log("On Calling Enter");
+		if (other.tag == "Calling") {
+			//Debug.Log("On Calling Enter");
+			Vector3 tempPos = other.transform.position;
+			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
+			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z), moveDuration);
+			windyAgent.SetDestination(tempPos);
 		}
 	}
 
