@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
 			TraverseOffMeshLink ();
 			OnSwitchTap ();
 			OnRotatedEnemyTap ();
-			//OnCallingTap ();
+			OnCallingTap ();
 			//OnCallingEnter ();
 			OnDangerAlertTap ();
 			OnBoxTap ();
@@ -190,11 +190,13 @@ public class PlayerScript : MonoBehaviour {
 	void OnCallingTap () {
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("Calling");
 		for (int i = 0; i < gos.Length; i++) {
+			//Debug.Log(Vector3.Distance(this.transform.position, gos[i].transform.position));
 			if (Input.GetMouseButtonDown(0)){
+
 				if(Physics.Raycast(m_ray, out m_hitInfo, m_rayDistance)){
 					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
 					{
-
+						Debug.Log("On Calling Tap");
 						if (m_hitInfo.transform == gos[i].transform) {
 							callingTimes++;
 							if(callingTimes % 2 == 1){
@@ -264,7 +266,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider other){
+	/*void OnTriggerEnter(Collider other){
 		//Debug.Log("On Calling Enter");
 		if (other.tag == "Calling") {
 			//Debug.Log("On Calling Enter");
@@ -284,6 +286,6 @@ public class PlayerScript : MonoBehaviour {
 			windyAgent.SetDestination(tempPos);
 		}
 	}
-
+*/
 
 }
