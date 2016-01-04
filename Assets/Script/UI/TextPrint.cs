@@ -19,10 +19,13 @@ public class TextPrint : MonoBehaviour {
 	};
 
 	public Text txtPrint;
+	public GameObject storyBoardPanel;
 
+	bool paused;
 	// Use this for initialization
 	void Start () {
 
+		storyBoardPanel.SetActive (true);
 		TextChange ();
 	
 	}
@@ -30,8 +33,9 @@ public class TextPrint : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
 		txtPrint.text = printText;
-		TextMoveOn ();
+		//TextMoveOn ();
 	
 	}
 
@@ -52,8 +56,8 @@ public class TextPrint : MonoBehaviour {
 		j++;
 	}
 
-	void TextMoveOn () {
-		if (Input.GetMouseButtonDown(0))
+	public void OnTextConfirm () {
+		//if (Input.GetMouseButtonDown(0))
 		{                    
 			//检测对话显示完没有 i = j 就是还没有显示完
 			if (i == j)
@@ -72,10 +76,15 @@ public class TextPrint : MonoBehaviour {
 				else
 				{
 					//DO STH.
+					storyBoardPanel.SetActive(false);
 					
 				}
 				
 			}                                          
 		}          
 	}
+
+
+
+
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
-	public GameObject storyBoardPanel;
+	//public GameObject storyBoardPanel;
 
 	// Use this for initialization
 	void Start () {

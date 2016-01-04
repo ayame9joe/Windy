@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public GameObject walkingShadowAnim;
 
+	public GameObject storyBoardPanel;
 
 	// Use this for initialization
 	void Start () {
@@ -50,15 +51,19 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Move ();
-		TraverseOffMeshLink ();
-		OnSwitchTap ();
-		OnRotatedEnemyTap ();
-		//OnCallingTap ();
-		//OnCallingEnter ();
-		OnDangerAlertTap ();
-		OnBoxTap ();
-		OnEnergyTap ();
+		if (!storyBoardPanel.activeSelf) {
+			Move ();
+			TraverseOffMeshLink ();
+			OnSwitchTap ();
+			OnRotatedEnemyTap ();
+			//OnCallingTap ();
+			//OnCallingEnter ();
+			OnDangerAlertTap ();
+			OnBoxTap ();
+			OnEnergyTap ();
+		
+		}
+
 
 
 	}
