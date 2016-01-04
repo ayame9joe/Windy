@@ -13,6 +13,8 @@ public class SwitchScript : MonoBehaviour {
 
 	public bool hasCheckedType = true;
 
+	public float moveDis = 2;
+
 	// Use this for initialization
 	void Start () {
 		movableController = Movable.GetComponent<MovableController> ();
@@ -29,39 +31,39 @@ public class SwitchScript : MonoBehaviour {
 	public void SwitchOn () {
 		switch (movableController.movableType) {
 		case MovableController.MovableType.left:
-			Movable.transform.DOMove(new Vector3(m_Pos.x + 1, m_Pos.y, m_Pos.z), duration);
+			Movable.transform.DOMove(new Vector3(m_Pos.x + moveDis, m_Pos.y, m_Pos.z), duration);
 			break;
 		case MovableController.MovableType.right:
-			Movable.transform.DOMove(new Vector3(m_Pos.x - 1, m_Pos.y, m_Pos.z), duration);
+			Movable.transform.DOMove(new Vector3(m_Pos.x - moveDis, m_Pos.y, m_Pos.z), duration);
 			break;
 		case MovableController.MovableType.up:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y + 1, m_Pos.z), duration);
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y + moveDis, m_Pos.z), duration);
 			break;
 		case MovableController.MovableType.down:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y - 1, m_Pos.z), duration);
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y - moveDis, m_Pos.z), duration);
 			break;
 		case MovableController.MovableType.forward:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z - 1), duration);
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z - moveDis), duration);
 			break;
 		case MovableController.MovableType.back:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z + 1), duration);
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z + moveDis), duration);
 			break;
 		}		 
 	}
 
 	public void CheckType () {
-		if (Movable.transform.position == new Vector3 (m_Pos.x + 1, m_Pos.y, m_Pos.z)) {
-			movableController.movableType = MovableController.MovableType.right;
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x - 1, m_Pos.y, m_Pos.z)) {
-			movableController.movableType = MovableController.MovableType.left;
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y + 1, m_Pos.z)) {
-			movableController.movableType = MovableController.MovableType.down;
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y - 1, m_Pos.z)) {
-			movableController.movableType = MovableController.MovableType.up;
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y, m_Pos.z + 1)) {
-			movableController.movableType = MovableController.MovableType.forward;
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y, m_Pos.z - 1)) {
-			movableController.movableType = MovableController.MovableType.back;
+		if (Movable.transform.position == new Vector3 (m_Pos.x + moveDis, m_Pos.y, m_Pos.z)) {
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
+		} else if (Movable.transform.position == new Vector3 (m_Pos.x - moveDis, m_Pos.y, m_Pos.z)) {
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
+		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y + moveDis, m_Pos.z)) {
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
+		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y - moveDis, m_Pos.z)) {
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
+		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y, m_Pos.z + moveDis)) {
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
+		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y, m_Pos.z - moveDis)) {
+			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
 		}
 
 	}

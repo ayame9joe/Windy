@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour {
 	NavMeshAgent m_agent;
 	OffMeshLinkData linkData;
 
-	public float minDis = 2;
+	public float minDis = 2f;
 
 	public GameObject windy;
 	NavMeshAgent windyAgent;
@@ -51,7 +51,7 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (!storyBoardPanel.activeSelf) {
+		//if (!storyBoardPanel.activeSelf) {
 			Move ();
 			TraverseOffMeshLink ();
 			OnSwitchTap ();
@@ -62,7 +62,7 @@ public class PlayerScript : MonoBehaviour {
 			OnBoxTap ();
 			OnEnergyTap ();
 		
-		}
+		//}
 
 
 
@@ -131,7 +131,7 @@ public class PlayerScript : MonoBehaviour {
 			linkData = m_agent.currentOffMeshLinkData;
 			this.transform.DOMove(linkData.endPos, moveDuration);
 		}
-		if (Vector3.Distance(this.transform.position, linkData.endPos) < 1){
+		if (Vector3.Distance(this.transform.position, linkData.endPos) < 0.2f){
 			m_agent.Resume();
 			m_agent.CompleteOffMeshLink();
 		}
@@ -140,6 +140,7 @@ public class PlayerScript : MonoBehaviour {
 	void OnSwitchTap () {
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("Switch");
 		for(int i = 0; i < gos.Length; i++) {
+			//Debug.Log(Vector3.Distance(this.transform.position, gos[i].transform.position));
 			if(Input.GetMouseButtonDown(0)){
 				if(Physics.Raycast(m_ray,out m_hitInfo, m_rayDistance, itemLayerMask))
 				{
@@ -156,10 +157,13 @@ public class PlayerScript : MonoBehaviour {
 			if (!gos[i].GetComponent<SwitchScript>().hasCheckedType) {
 				//Debug.Log ("Switch On");
 				gos[i].GetComponent<SwitchScript>().SwitchOn();
+				gos[i].GetComponent<SwitchScript>().CheckType();
 				gos[i].GetComponent<SwitchScript>().hasCheckedType = true;
 			}
 			else {
-				gos[i].GetComponent<SwitchScript>().CheckType();
+
+				//gos[i].GetComponent<SwitchScript>().hasCheckedType = false;
+				//Debug.Log ("CheckType");
 			}
 		}
 
