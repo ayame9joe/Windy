@@ -56,11 +56,13 @@ public class PlayerScript : MonoBehaviour {
 			TraverseOffMeshLink ();
 			OnSwitchTap ();
 			OnRotatedEnemyTap ();
-			OnCallingTap ();
+			//OnCallingTap ();
 			//OnCallingEnter ();
+			OnCalling();
 			OnDangerAlertTap ();
 			OnBoxTap ();
 			OnEnergyTap ();
+
 		
 		//}
 
@@ -187,7 +189,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-	void OnCallingTap () {
+	/*void OnCallingTap () {
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("Calling");
 		for (int i = 0; i < gos.Length; i++) {
 			//Debug.Log(Vector3.Distance(this.transform.position, gos[i].transform.position));
@@ -209,7 +211,7 @@ public class PlayerScript : MonoBehaviour {
 				}
 			}
 		}
-	}
+	}*/
 
 	void OnDangerAlertTap () {
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("DangerAlert");
@@ -287,5 +289,12 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 */
+
+	void OnCalling () {
+		if (Input.GetKeyDown(KeyCode.Space)){
+
+			windyAgent.SetDestination (this.transform.position);
+		}
+	}
 
 }
