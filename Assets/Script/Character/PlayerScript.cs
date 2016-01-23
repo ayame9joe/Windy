@@ -268,27 +268,40 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-	/*void OnTriggerEnter(Collider other){
+
+	void OnTriggerEnter(Collider other){
 		//Debug.Log("On Calling Enter");
-		if (other.tag == "Calling") {
+		/*if (other.tag == "Calling") {
 			//Debug.Log("On Calling Enter");
 			Vector3 tempPos = other.transform.position;
 			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
 			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y - 0.3f, tempPos.z), moveDuration);
 			windyAgent.SetDestination(tempPos);
+		}*/
+		if (other.tag == "SwitchOther") {
+			//Debug.Log("On Calling Enter");
+			Vector3 tempPos = other.transform.position;
+			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
+			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y - 0.3f, tempPos.z), moveDuration);
 		}
 	}
 
 	void OnTriggerExit(Collider other){
-		if (other.tag == "Calling") {
+		/*if (other.tag == "Calling") {
 			//Debug.Log("On Calling Enter");
 			Vector3 tempPos = other.transform.position;
 			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
 			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y + 0.3f, tempPos.z), moveDuration);
 			windyAgent.SetDestination(tempPos);
+		}*/
+		if (other.tag == "SwitchOther") {
+			//Debug.Log("On Calling Enter");
+			Vector3 tempPos = other.transform.position;
+			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
+			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y + 0.3f, tempPos.z), moveDuration);
 		}
 	}
-*/
+
 
 	void OnCalling () {
 		if (Input.GetKeyDown(KeyCode.Space)){
