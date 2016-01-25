@@ -4,67 +4,25 @@ using DG.Tweening;
 
 public class SwitchScript : MonoBehaviour {
 
-	public GameObject Movable;
-	MovableController movableController;
+	public string switchName;
 
-	Vector3 m_Pos;
-
-	public float duration = 1;
-
-	public bool hasCheckedType = true;
-
-	public float moveDis = 2;
-
-	// Use this for initialization
-	void Start () {
-		movableController = Movable.GetComponent<MovableController> ();
-		m_Pos = Movable.transform.position;
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	
+	void OnEnable ()
+	{
+		EventManager.StartListening ("SwitchOn", SwitchOn);
 	}
 
-	public void SwitchOn () {
-		switch (movableController.movableType) {
-		case MovableController.MovableType.left:
-			Movable.transform.DOMove(new Vector3(m_Pos.x + moveDis, m_Pos.y, m_Pos.z), duration);
-			break;
-		case MovableController.MovableType.right:
-			Movable.transform.DOMove(new Vector3(m_Pos.x - moveDis, m_Pos.y, m_Pos.z), duration);
-			break;
-		case MovableController.MovableType.up:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y + moveDis, m_Pos.z), duration);
-			break;
-		case MovableController.MovableType.down:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y - moveDis, m_Pos.z), duration);
-			break;
-		case MovableController.MovableType.forward:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z - moveDis), duration);
-			break;
-		case MovableController.MovableType.back:
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z + moveDis), duration);
-			break;
-		}		 
+	void OnDisable () 
+	{
+		EventManager.StopListening ("SwitchOn", SwitchOn);
 	}
 
-	public void CheckType () {
-		if (Movable.transform.position == new Vector3 (m_Pos.x + moveDis, m_Pos.y, m_Pos.z)) {
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x - moveDis, m_Pos.y, m_Pos.z)) {
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y + moveDis, m_Pos.z)) {
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y - moveDis, m_Pos.z)) {
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y, m_Pos.z + moveDis)) {
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
-		} else if (Movable.transform.position == new Vector3 (m_Pos.x, m_Pos.y, m_Pos.z - moveDis)) {
-			Movable.transform.DOMove(new Vector3(m_Pos.x, m_Pos.y, m_Pos.z), duration);
+	void SwitchOn ()
+	{
+		
+		if (switchName == "level1Up") {
+			//Debug.Log ("Switch On");
+			GameObject.Find ("Level1WindyPassage1").transform.DOMove (new Vector3 (9, 7.5f, -10), 2);
+
 		}
-
 	}
 }

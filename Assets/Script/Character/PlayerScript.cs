@@ -149,22 +149,22 @@ public class PlayerScript : MonoBehaviour {
 					if(Vector3.Distance(this.transform.position, gos[i].transform.position) < minDis)
 					{
 						if (m_hitInfo.transform == gos[i].transform) {
-							gos[i].GetComponent<SwitchScript>().hasCheckedType = false;
+							gos[i].GetComponent<MovableScript>().hasCheckedType = false;
 						}
 					}
 				}
 			}
 
 
-			if (!gos[i].GetComponent<SwitchScript>().hasCheckedType) {
+			if (!gos[i].GetComponent<MovableScript>().hasCheckedType) {
 				//Debug.Log ("Switch On");
-				gos[i].GetComponent<SwitchScript>().SwitchOn();
-				gos[i].GetComponent<SwitchScript>().CheckType();
-				gos[i].GetComponent<SwitchScript>().hasCheckedType = true;
+				gos[i].GetComponent<MovableScript>().SwitchOn();
+				gos[i].GetComponent<MovableScript>().CheckType();
+				gos[i].GetComponent<MovableScript>().hasCheckedType = true;
 			}
 			else {
 
-				//gos[i].GetComponent<SwitchScript>().hasCheckedType = false;
+				//gos[i].GetComponent<MovableScript>().hasCheckedType = false;
 				//Debug.Log ("CheckType");
 			}
 		}
@@ -299,6 +299,7 @@ public class PlayerScript : MonoBehaviour {
 			Vector3 tempPos = other.transform.position;
 			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
 			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y + 0.3f, tempPos.z), moveDuration);
+			EventManager.TriggerEvent ("SwitchOn");
 		}
 	}
 
