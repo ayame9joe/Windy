@@ -8,6 +8,14 @@ public class SwitchScript : MonoBehaviour {
 
 	bool switchOnce;
 
+	public GameObject windy;
+	NavMeshAgent windyAgent;
+
+	void Awake ()
+	{
+		windyAgent = windy.GetComponent<NavMeshAgent> ();
+	}
+
 	void OnEnable ()
 	{
 		EventManager.StartListening ("SwitchOn", SwitchOn);
@@ -32,7 +40,7 @@ public class SwitchScript : MonoBehaviour {
 	IEnumerator Level1Up ()
 	{
 		//Debug.Log ("Level 1 Up");
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (.5f);
 		if (GameObject.Find ("Level1WindPassage1")) {
 			GameObject.Find ("Level1WindPassage1").SetActive (false);
 		}
@@ -47,5 +55,6 @@ public class SwitchScript : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 		//Debug.Log (1);
 		GameObject.Find ("Level1WindyPassage1Slice1").transform.DOMove (new Vector3 (9, 7.5f, -2), 2);
+		windyAgent.areaMask = 33;
 	}
 }

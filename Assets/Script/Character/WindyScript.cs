@@ -30,4 +30,9 @@ public class WindyScript : MonoBehaviour {
 			// TODO: 
 		}
 	}
+
+	public void CanWalkOnStage ()
+	{
+		navMeshAgent.areaMask = 33;
+	}
 }
