@@ -34,6 +34,8 @@ public class SwitchScript : MonoBehaviour {
 				StartCoroutine ("Level1Up");
 				switchOnce = true;
 			}
+		} else if (switchName == "level1Rotation") {
+			
 		}
 	}
 
