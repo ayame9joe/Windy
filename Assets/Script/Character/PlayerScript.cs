@@ -35,6 +35,8 @@ public class PlayerScript : MonoBehaviour {
 
 	public GameObject storyBoardPanel;
 
+
+
 	// Use this for initialization
 	void Start () {
 		m_agent = this.GetComponent<NavMeshAgent> ();
@@ -283,6 +285,7 @@ public class PlayerScript : MonoBehaviour {
 			Vector3 tempPos = other.transform.position;
 			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
 			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y - 0.3f, tempPos.z), moveDuration);
+			EventManager.TriggerEvent ("SwitchOn");
 		}
 	}
 
@@ -294,13 +297,13 @@ public class PlayerScript : MonoBehaviour {
 			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y + 0.3f, tempPos.z), moveDuration);
 			windyAgent.SetDestination(tempPos);
 		}*/
-		if (other.tag == "SwitchOther") {
+		/*if (other.tag == "SwitchOther") {
 			//Debug.Log("On Calling Enter");
 			Vector3 tempPos = other.transform.position;
 			//other.transform.position = new Vector3(tempPos.x, tempPos.y - 0.4f, tempPos.z);
 			other.transform.DOMove(new Vector3(tempPos.x, tempPos.y + 0.3f, tempPos.z), moveDuration);
-			EventManager.TriggerEvent ("SwitchOn");
-		}
+
+		}*/
 	}
 
 

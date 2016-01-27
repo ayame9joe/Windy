@@ -28,15 +28,21 @@ public class SwitchScript : MonoBehaviour {
 
 	void SwitchOn ()
 	{
-		
-		if (switchName == "level1Up") {
-			if (!switchOnce) {
+
+		if (!switchOnce) {
+			switchOnce = true;
+
+			if (switchName == "level1Up") {
 				StartCoroutine ("Level1Up");
-				switchOnce = true;
+				Debug.Log ("Level 1 Up");
+
 			}
-		} else if (switchName == "level1Rotation") {
-			
+			else if (switchName == "level1Rotation") {
+
+				StartCoroutine ("Level1Rotation");
+			}
 		}
+
 	}
 
 	IEnumerator Level1Up ()
@@ -47,16 +53,22 @@ public class SwitchScript : MonoBehaviour {
 			GameObject.Find ("Level1WindPassage1").SetActive (false);
 		}
 		//Debug.Log (4);
-		GameObject.Find ("Level1WindyPassage1Slice4").transform.DOMove (new Vector3 (9, 7.5f, -8), 2);
+		GameObject.Find ("Level1WindyPassage1Slice4").transform.DOMove (new Vector3 (9, 7.4f, -8), 2);
 		yield return new WaitForSeconds (1);
 		//Debug.Log (3);
-		GameObject.Find ("Level1WindyPassage1Slice3").transform.DOMove (new Vector3 (9, 7.5f, -6), 2);
+		GameObject.Find ("Level1WindyPassage1Slice3").transform.DOMove (new Vector3 (9, 7.4f, -6), 2);
 		yield return new WaitForSeconds (1);
 		//Debug.Log (2);
-		GameObject.Find ("Level1WindyPassage1Slice2").transform.DOMove (new Vector3 (9, 7.5f, -4), 2);
+		GameObject.Find ("Level1WindyPassage1Slice2").transform.DOMove (new Vector3 (9, 7.4f, -4), 2);
 		yield return new WaitForSeconds (1);
 		//Debug.Log (1);
-		GameObject.Find ("Level1WindyPassage1Slice1").transform.DOMove (new Vector3 (9, 7.5f, -2), 2);
+		GameObject.Find ("Level1WindyPassage1Slice1").transform.DOMove (new Vector3 (9, 7.4f, -2), 2);
 		windyAgent.areaMask = 33;
+	}
+
+	void Level1Rotation ()
+	{
+		Debug.Log ("Level 1 Rotation");
+		GameObject.Find ("Level1Rotation").transform.DORotate (new Vector3 (0, -270, 0), 2, RotateMode.FastBeyond360);
 	}
 }
